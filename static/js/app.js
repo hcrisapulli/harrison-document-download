@@ -88,39 +88,42 @@
 
       card.querySelectorAll("[data-field]").forEach((el) => {
         const field = el.dataset.field;
+        const fieldLabel = field.replace(/_/g, " ");
 
         if (el.type === "number") {
-          const raw = el.value.trim();
+          // Use valueAsNumber to read what was actually typed, bypassing browser range clamping
+          const typed = el.valueAsNumber;
+          const hasValue = !el.validity.valueMissing && el.value !== "";
+          const min = el.min !== "" ? parseFloat(el.min) : null;
+          const max = el.max !== "" ? parseFloat(el.max) : null;
 
-          // Must not be empty for count
           if (field === "count") {
-            const val = parseInt(raw, 10);
-            if (!raw || isNaN(val) || val < 1) {
+            if (!hasValue || isNaN(typed) || typed < 1) {
               errors.push(`${label}: "How many?" must be at least 1.`);
-            } else if (val > parseInt(el.max, 10)) {
-              errors.push(`${label}: "How many?" cannot exceed ${el.max}.`);
+            } else if (max !== null && typed > max) {
+              errors.push(`${label}: "How many?" cannot exceed ${max}.`);
             }
             return;
           }
 
-          // Optional numeric fields — only validate if something was entered
-          if (!raw) return;
-          const val = parseFloat(raw);
-          if (isNaN(val)) {
-            errors.push(`${label}: "${field.replace(/_/g, " ")}" must be a number.`);
+          // Optional fields — skip if nothing entered
+          if (!hasValue) return;
+
+          if (isNaN(typed)) {
+            errors.push(`${label}: "${fieldLabel}" must be a valid number.`);
             return;
           }
-          if (el.min !== "" && val < parseFloat(el.min)) {
-            errors.push(`${label}: "${field.replace(/_/g, " ")}" must be at least ${el.min}.`);
+          if (min !== null && typed < min) {
+            errors.push(`${label}: "${fieldLabel}" must be at least ${min}.`);
           }
-          if (el.max !== "" && val > parseFloat(el.max)) {
-            errors.push(`${label}: "${field.replace(/_/g, " ")}" cannot exceed ${Number(el.max).toLocaleString()}.`);
+          if (max !== null && typed > max) {
+            errors.push(`${label}: "${fieldLabel}" cannot exceed ${Number(max).toLocaleString()}.`);
           }
         }
 
         if (el.type === "text" && el.maxLength > 0) {
           if (el.value.length > el.maxLength) {
-            errors.push(`${label}: "${field.replace(/_/g, " ")}" cannot exceed ${el.maxLength} characters.`);
+            errors.push(`${label}: "${fieldLabel}" cannot exceed ${el.maxLength} characters.`);
           }
         }
       });
@@ -153,9 +156,9 @@
       const val = el.value.trim();
       if (!val) return;
 
-      // Numeric fields
+      // Numeric fields — use valueAsNumber to read typed value accurately
       if (el.type === "number") {
-        const num = parseFloat(val);
+        const num = el.valueAsNumber;
         if (!isNaN(num)) spec.params[field] = num;
       } else {
         spec.params[field] = val;
