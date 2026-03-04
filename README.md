@@ -77,8 +77,39 @@ Without the API key, the app falls back to keyword-based parsing (e.g., "gst fre
 - Rental Property Statements
 - Trial Balances
 
+## Project Structure
+
+```
+harrison-document-download/
+├── app.py                      # Main Flask application
+├── generators.py               # Document generation dispatcher
+├── ai_instruction_parser.py    # AI-powered instruction parser
+├── instruction_parser.py       # Fallback keyword-based parser
+├── requirements.txt            # Python dependencies
+├── start_webapp.bat            # Windows launcher script
+├── create_shortcut.ps1         # Desktop shortcut creator
+├── scripts/                    # PDF generation scripts
+│   ├── generate_invoices.py
+│   ├── generate_receipts.py
+│   ├── generate_utility_bills.py
+│   ├── generate_asic_fee.py
+│   ├── generate_bank_statement.py
+│   ├── generate_contract_note.py
+│   ├── generate_council_rate.py
+│   ├── generate_dividend.py
+│   ├── generate_property_settlement.py
+│   ├── generate_rental_statement.py
+│   └── generate_trial_balance.py
+├── static/                     # CSS and JavaScript
+│   ├── css/style.css
+│   └── js/app.js
+└── templates/                  # HTML templates
+    └── index.html
+```
+
 ## Requirements
 
 - Python 3.7+
 - Flask
 - ReportLab
+- Anthropic (optional, for AI-powered parsing)

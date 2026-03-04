@@ -10,7 +10,7 @@ import sys
 
 # Resolve the scripts directory relative to this file
 _SCRIPTS_DIR = os.path.abspath(
-    os.path.join(os.path.dirname(__file__), "..", "scripts")
+    os.path.join(os.path.dirname(__file__), "scripts")
 )
 
 
