@@ -36,6 +36,7 @@ _NUMERIC_LIMITS = {
     "billing_days":      (1, 365),
     "num_items":         (1, 10),
     "num_transactions":  (1, 50),
+    "financial_year":    (2000, 2100),
 }
 
 

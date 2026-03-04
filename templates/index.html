@@ -260,10 +260,13 @@
               </label>
             </div>
             <div class="field-row">
+              <label>Financial Year <input type="number" min="2000" max="2100" step="1" placeholder="e.g. 2025 (dates: 01/07/2024–30/06/2025)" data-field="financial_year" data-clamp /></label>
+            </div>
+            <div class="field-row">
               <label class="checkbox-label"><input type="checkbox" data-field="show_balance" /> No running balance (hide balance column)</label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder='e.g. "balance=5000, no running balance"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder='e.g. "FY2025, balance=5000, no running balance"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>

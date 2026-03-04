@@ -100,16 +100,17 @@ def round_to_tenth(amount):
     return round(amount * 10) / 10
 
 
-def generate_transactions(opening_balance, num_transactions):
+def generate_transactions(opening_balance, num_transactions, start_date=None, end_date=None):
     """Generate random bank transactions."""
     transactions = []
     balance = opening_balance
 
-    # Generate random dates across a period (e.g., 10 months)
-    start_date = datetime.now() - timedelta(days=300)
-    end_date = datetime.now()
+    if start_date is None:
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=300)
+    span_days = (end_date - start_date).days or 1
 
-    dates = sorted([start_date + timedelta(days=random.randint(0, 300))
+    dates = sorted([start_date + timedelta(days=random.randint(0, span_days))
                     for _ in range(num_transactions)])
 
     for i, date in enumerate(dates):
@@ -159,8 +160,15 @@ def generate_transactions(opening_balance, num_transactions):
     return transactions, balance
 
 
+def fy_date_range(year: int):
+    """Return (start_date, end_date) for the given Australian financial year.
+    FY2025 = 1 Jul 2024 – 30 Jun 2025.
+    """
+    return datetime(year - 1, 7, 1), datetime(year, 6, 30)
+
+
 def generate_bank_statement_data(bank_name=None, account_holder=None, opening_balance=None,
-                                 num_transactions=None, show_balance=False):
+                                 num_transactions=None, show_balance=False, financial_year=None):
     """Generate random bank statement data."""
     # Select bank
     if bank_name:
@@ -180,8 +188,11 @@ def generate_bank_statement_data(bank_name=None, account_holder=None, opening_ba
     account_number = generate_account_number()
 
     # Period
-    end_date = datetime.now()
-    start_date = end_date - timedelta(days=300)
+    if financial_year:
+        start_date, end_date = fy_date_range(financial_year)
+    else:
+        end_date = datetime.now()
+        start_date = end_date - timedelta(days=300)
     period = f"{start_date.day} {start_date.strftime('%b %Y')} - {end_date.day} {end_date.strftime('%b %Y')}"
 
     account_type = random.choice(ACCOUNT_TYPES)
@@ -195,7 +206,7 @@ def generate_bank_statement_data(bank_name=None, account_holder=None, opening_ba
     if num_transactions is None:
         num_transactions = random.randint(15, 25)
 
-    trans_list, closing_balance = generate_transactions(opening_balance, num_transactions)
+    trans_list, closing_balance = generate_transactions(opening_balance, num_transactions, start_date, end_date)
 
     # Add opening and closing balance rows
     if show_balance:

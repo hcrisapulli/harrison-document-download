@@ -154,6 +154,11 @@ def parse(text: str) -> dict:
 
     # ========== BANK STATEMENT PARAMETERS ==========
 
+    # financial_year — "FY2025", "FY 2025", "Financial Year 2025", "financial_year=2025"
+    m = re.search(r"(?:financial[_\s]?year|fy)[_\s=:]?\s*(\d{4})", t)
+    if m:
+        params["financial_year"] = int(m.group(1))
+
     # bank_name — "bank=Commonwealth Bank"
     bank = _extract_quoted_text(r"bank(?:_name)?", text)
     if bank:
