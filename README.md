@@ -21,24 +21,6 @@ cd harrison-document-download
 pip install -r requirements.txt
 ```
 
-3. (Optional) Set up AI-powered instruction parsing:
-   - Get a free Claude API key from [console.anthropic.com](https://console.anthropic.com/settings/keys)
-   - Set the environment variable:
-     ```bash
-     # Windows Command Prompt
-     set ANTHROPIC_API_KEY=your_api_key_here
-
-     # Windows PowerShell
-     $env:ANTHROPIC_API_KEY="your_api_key_here"
-
-     # Linux/Mac
-     export ANTHROPIC_API_KEY=your_api_key_here
-     ```
-   - Alternatively, create a `.env` file in the webapp directory with:
-     ```
-     ANTHROPIC_API_KEY=your_api_key_here
-     ```
-
 ## Usage
 
 ### Windows (Easy Method)
@@ -109,8 +91,7 @@ See [KEYWORD_GUIDE.md](KEYWORD_GUIDE.md) for the complete list of supported keyw
 harrison-document-download/
 ├── app.py                      # Main Flask application
 ├── generators.py               # Document generation dispatcher
-├── ai_instruction_parser.py    # AI-powered instruction parser
-├── instruction_parser.py       # Fallback keyword-based parser
+├── instruction_parser.py       # Keyword-based instruction parser
 ├── requirements.txt            # Python dependencies
 ├── start_webapp.bat            # Windows launcher script
 ├── create_shortcut.ps1         # Desktop shortcut creator
@@ -138,4 +119,3 @@ harrison-document-download/
 - Python 3.7+
 - Flask
 - ReportLab
-- Anthropic (optional, for AI-powered parsing)
