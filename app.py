@@ -37,7 +37,6 @@ def generate():
     if not isinstance(documents, list) or len(documents) == 0:
         return jsonify({"error": "'documents' must be a non-empty list."}), 400
 
-    instructions_parts = []
     zip_buffer = io.BytesIO()
 
     try:
@@ -61,22 +60,12 @@ def generate():
                     parsed = instruction_parser.parse(instruction_text)
                     params = instruction_parser.merge(form_params, parsed)
 
-                    if instruction_text:
-                        instructions_parts.append(
-                            f"[{doc_type}] ({count} file(s)): {instruction_text}"
-                        )
-
                     for i in range(count):
                         filename = f"{doc_type}_{i + 1:03d}.pdf"
                         filepath = os.path.join(tmpdir, filename)
                         generators.dispatch(doc_type, params, filepath)
                         zf.write(filepath, arcname=filename)
 
-                if instructions_parts:
-                    readme = "SmartDocs Sample Generator — Instructions\n"
-                    readme += "=" * 42 + "\n\n"
-                    readme += "\n".join(instructions_parts) + "\n"
-                    zf.writestr("INSTRUCTIONS.txt", readme)
 
     except ValueError as exc:
         return jsonify({"error": str(exc)}), 400
