@@ -73,6 +73,62 @@
 
   // ── Build request payload ─────────────────────────────────────────────────
 
+  // ── Validation ────────────────────────────────────────────────────────────
+
+  function validateCards() {
+    const errors = [];
+
+    getCheckboxes().forEach((cb) => {
+      if (!cb.checked) return;
+      const type = cb.value;
+      const card = document.getElementById("card-" + type);
+      if (!card) return;
+
+      const label = type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+
+      card.querySelectorAll("[data-field]").forEach((el) => {
+        const field = el.dataset.field;
+
+        if (el.type === "number") {
+          const raw = el.value.trim();
+
+          // Must not be empty for count
+          if (field === "count") {
+            const val = parseInt(raw, 10);
+            if (!raw || isNaN(val) || val < 1) {
+              errors.push(`${label}: "How many?" must be at least 1.`);
+            } else if (val > parseInt(el.max, 10)) {
+              errors.push(`${label}: "How many?" cannot exceed ${el.max}.`);
+            }
+            return;
+          }
+
+          // Optional numeric fields — only validate if something was entered
+          if (!raw) return;
+          const val = parseFloat(raw);
+          if (isNaN(val)) {
+            errors.push(`${label}: "${field.replace(/_/g, " ")}" must be a number.`);
+            return;
+          }
+          if (el.min !== "" && val < parseFloat(el.min)) {
+            errors.push(`${label}: "${field.replace(/_/g, " ")}" must be at least ${el.min}.`);
+          }
+          if (el.max !== "" && val > parseFloat(el.max)) {
+            errors.push(`${label}: "${field.replace(/_/g, " ")}" cannot exceed ${Number(el.max).toLocaleString()}.`);
+          }
+        }
+
+        if (el.type === "text" && el.maxLength > 0) {
+          if (el.value.length > el.maxLength) {
+            errors.push(`${label}: "${field.replace(/_/g, " ")}" cannot exceed ${el.maxLength} characters.`);
+          }
+        }
+      });
+    });
+
+    return errors;
+  }
+
   function readCard(card, type) {
     const spec = { type, count: 1, params: {}, instruction: "" };
 
@@ -80,7 +136,7 @@
       const field = el.dataset.field;
 
       if (field === "count") {
-        spec.count = Math.max(1, Math.min(20, parseInt(el.value, 10) || 1));
+        spec.count = Math.max(1, Math.min(parseInt(el.max, 10) || 10, parseInt(el.value, 10) || 1));
         return;
       }
 
@@ -143,6 +199,12 @@
     const payload = buildPayload();
     if (payload.documents.length === 0) {
       showError("Please select at least one document type.");
+      return;
+    }
+
+    const validationErrors = validateCards();
+    if (validationErrors.length > 0) {
+      showError(validationErrors.join("\n"));
       return;
     }
 

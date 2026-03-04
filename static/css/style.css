@@ -248,6 +248,7 @@ header h1 {
   border-radius: var(--radius);
   color: var(--color-error);
   font-size: 13px;
+  white-space: pre-line;
 }
 
 /* Spinner */

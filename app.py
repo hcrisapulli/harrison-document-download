@@ -50,8 +50,8 @@ def generate():
                     count = int(spec.get("count") or 1)
                     if count < 1:
                         count = 1
-                    if count > 20:
-                        count = 20
+                    if count > 10:
+                        count = 10
 
                     # Merge explicit params with instruction-parsed params
                     form_params = spec.get("params") or {}
