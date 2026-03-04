@@ -160,7 +160,7 @@ def generate_transactions(opening_balance, num_transactions):
 
 
 def generate_bank_statement_data(bank_name=None, account_holder=None, opening_balance=None,
-                                 num_transactions=None):
+                                 num_transactions=None, show_balance=False):
     """Generate random bank statement data."""
     # Select bank
     if bank_name:
@@ -198,11 +198,15 @@ def generate_bank_statement_data(bank_name=None, account_holder=None, opening_ba
     trans_list, closing_balance = generate_transactions(opening_balance, num_transactions)
 
     # Add opening and closing balance rows
-    transactions = [
-        (f"{start_date.day} {start_date.strftime('%b %Y')}", "OPENING BALANCE", "", "", f"${opening_balance:,.2f} CR")
-    ] + trans_list + [
-        (f"{end_date.day} {end_date.strftime('%b %Y')}", "CLOSING BALANCE", "", "", f"${closing_balance:,.2f} CR")
-    ]
+    if show_balance:
+        transactions = [
+            (f"{start_date.day} {start_date.strftime('%b %Y')}", "OPENING BALANCE", "", "", f"${opening_balance:,.2f} CR")
+        ] + trans_list + [
+            (f"{end_date.day} {end_date.strftime('%b %Y')}", "CLOSING BALANCE", "", "", f"${closing_balance:,.2f} CR")
+        ]
+    else:
+        # Strip balance column (5th element) from all transaction rows
+        transactions = [(t[0], t[1], t[2], t[3]) for t in trans_list]
 
     # Calculate totals
     total_debits = sum(float(t[2].replace("$", "").replace(",", ""))
@@ -226,6 +230,7 @@ def generate_bank_statement_data(bank_name=None, account_holder=None, opening_ba
         "account_type": account_type,
         "account_name_full": account_name_full,
         "transactions": transactions,
+        "show_balance": show_balance,
         "summary_opening": f"${opening_balance:,.2f} CR",
         "summary_debits": f"${total_debits:,.2f}",
         "summary_credits": f"${total_credits:,.2f}",
@@ -331,27 +336,45 @@ def build(output_path, d):
     tdb = ParagraphStyle("TDB",  fontSize=8.5, fontName="Helvetica-Bold", textColor=BLACK)
     tdbr= ParagraphStyle("TDBR", fontSize=8.5, fontName="Helvetica-Bold", textColor=BLACK, alignment=TA_RIGHT)
 
-    cw = [22*mm, UW * 0.40, 26*mm, 26*mm, 36*mm]
-    hdr_row = [
-        Paragraph("Date", th),
-        Paragraph("Transaction", th),
-        Paragraph("Debit", thr),
-        Paragraph("Credit", thr),
-        Paragraph("Balance", thr),
-    ]
+    show_balance = d.get("show_balance", True)  # True = show balance column (default)
+    if show_balance:
+        cw = [22*mm, UW * 0.40, 26*mm, 26*mm, 36*mm]
+        hdr_row = [
+            Paragraph("Date", th),
+            Paragraph("Transaction", th),
+            Paragraph("Debit", thr),
+            Paragraph("Credit", thr),
+            Paragraph("Balance", thr),
+        ]
+    else:
+        cw = [22*mm, UW * 0.52, 26*mm, 26*mm]
+        hdr_row = [
+            Paragraph("Date", th),
+            Paragraph("Transaction", th),
+            Paragraph("Debit", thr),
+            Paragraph("Credit", thr),
+        ]
 
     txn_rows = [hdr_row]
     for i, t in enumerate(d["transactions"]):
-        is_boundary = i == 0 or i == len(d["transactions"]) - 1
-        ds  = tdb  if is_boundary else td
-        vsr = tdbr if is_boundary else tdr
-        txn_rows.append([
-            Paragraph(t[0], ds),
-            Paragraph(t[1], ds),
-            Paragraph(t[2], vsr),
-            Paragraph(t[3], vsr),
-            Paragraph(t[4], vsr),
-        ])
+        if show_balance:
+            is_boundary = i == 0 or i == len(d["transactions"]) - 1
+            ds  = tdb  if is_boundary else td
+            vsr = tdbr if is_boundary else tdr
+            txn_rows.append([
+                Paragraph(t[0], ds),
+                Paragraph(t[1], ds),
+                Paragraph(t[2], vsr),
+                Paragraph(t[3], vsr),
+                Paragraph(t[4], vsr),
+            ])
+        else:
+            txn_rows.append([
+                Paragraph(t[0], td),
+                Paragraph(t[1], td),
+                Paragraph(t[2], tdr),
+                Paragraph(t[3], tdr),
+            ])
 
     tbl = Table(txn_rows, colWidths=cw, repeatRows=1)
     cmds = [

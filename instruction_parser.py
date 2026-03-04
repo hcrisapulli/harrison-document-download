@@ -164,6 +164,10 @@ def parse(text: str) -> dict:
     if holder:
         params["account_holder"] = holder
 
+    # show_balance — "no running balance", "no balance", "hide balance"
+    if re.search(r"no\s+running\s+balance|no\s+balance|hide\s+balance|without\s+balance", t):
+        params["show_balance"] = True
+
     # opening_balance — "balance=10000", "opening_balance=10000"
     m = re.search(r"(?:opening[_\s])?balance\s*[=:]\s*\$?\s*([\d,]+(?:\.\d+)?)", t)
     if m:

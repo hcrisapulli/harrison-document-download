@@ -90,6 +90,7 @@ def _gen_bank_statement(params: dict, output_path: str):
         account_holder=params.get("account_holder") or None,
         opening_balance=params.get("opening_balance") or None,
         num_transactions=params.get("num_transactions") or None,
+        show_balance=not bool(params.get("show_balance", False)),
     )
     mod.build(output_path, data)
 
