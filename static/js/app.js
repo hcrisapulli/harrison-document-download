@@ -51,6 +51,22 @@
     generateBtn.disabled = !anyChecked;
   }
 
+  // ── Real-time clamping for number inputs ──────────────────────────────────
+
+  document.getElementById("cards").addEventListener("input", (e) => {
+    const el = e.target;
+    if (el.type !== "number" || !el.hasAttribute("data-clamp")) return;
+    if (el.value === "" || el.value === "-") return;
+    const val = parseFloat(el.value);
+    if (isNaN(val)) return;
+    if (el.max !== "" && val > parseFloat(el.max)) {
+      el.value = el.max;
+    }
+    if (el.min !== "" && val < parseFloat(el.min) && el.value.length >= el.min.toString().length) {
+      el.value = el.min;
+    }
+  });
+
   typeGrid.addEventListener("change", (e) => {
     if (e.target.type === "checkbox") {
       updateCard(e.target);
@@ -97,14 +113,8 @@
           const min = el.min !== "" ? parseFloat(el.min) : null;
           const max = el.max !== "" ? parseFloat(el.max) : null;
 
-          if (field === "count") {
-            if (!hasValue || isNaN(typed) || typed < 1) {
-              errors.push(`${label}: "How many?" must be at least 1.`);
-            } else if (max !== null && typed > max) {
-              errors.push(`${label}: "How many?" cannot exceed ${max}.`);
-            }
-            return;
-          }
+          // count is now a select — always valid, skip
+          if (field === "count") return;
 
           // Optional fields — skip if nothing entered
           if (!hasValue) return;
@@ -139,7 +149,7 @@
       const field = el.dataset.field;
 
       if (field === "count") {
-        spec.count = Math.max(1, Math.min(parseInt(el.max, 10) || 10, parseInt(el.value, 10) || 1));
+        spec.count = Math.max(1, Math.min(10, parseInt(el.value, 10) || 1));
         return;
       }
 

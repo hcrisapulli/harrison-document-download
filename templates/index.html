@@ -42,21 +42,48 @@
           <div class="card-header"><h3>Invoice</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Supplier name <input type="text" placeholder="random" maxlength="60" data-field="supplier_name" /></label>
               <label>Customer name <input type="text" placeholder="random" maxlength="60" data-field="customer_name" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="subtotal" /></label>
-              <label>Num items <input type="number" min="1" max="10" placeholder="random" data-field="num_items" /></label>
+              <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="subtotal" data-clamp /></label>
+              <label>Num items
+                <select data-field="num_items">
+                  <option value="">random</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row">
               <label class="checkbox-label"><input type="checkbox" data-field="gst_free" /> GST-free</label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder='e.g. "gst-free, 3 items"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder='e.g. "gst-free, subtotal=5000"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -66,15 +93,42 @@
           <div class="card-header"><h3>Receipt</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Business name <input type="text" placeholder="random" maxlength="60" data-field="business_name" /></label>
               <label>Customer name <input type="text" placeholder="random" maxlength="60" data-field="customer_name" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="subtotal" /></label>
-              <label>Num items <input type="number" min="1" max="10" placeholder="random" data-field="num_items" /></label>
+              <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="subtotal" data-clamp /></label>
+              <label>Num items
+                <select data-field="num_items">
+                  <option value="">random</option>
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder='e.g. "3 items, subtotal=500"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -87,15 +141,37 @@
           <div class="card-header"><h3>Utility Bill</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Provider name <input type="text" placeholder="random" maxlength="60" data-field="provider_name" /></label>
               <label>Customer name <input type="text" placeholder="random" maxlength="60" data-field="customer_name" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Usage amount <input type="number" min="1" max="99999" step="0.01" placeholder="random" data-field="usage_amount" /></label>
-              <label>Billing days <input type="number" min="1" max="365" placeholder="91" data-field="billing_days" /></label>
+              <label>Usage amount <input type="number" min="1" max="99999" step="0.01" placeholder="random" data-field="usage_amount" data-clamp /></label>
+              <label>Billing days
+                <select data-field="billing_days">
+                  <option value="">random</option>
+                  <option value="30">30 days (monthly)</option>
+                  <option value="60">60 days (bi-monthly)</option>
+                  <option value="91">91 days (quarterly)</option>
+                  <option value="182">182 days (half-yearly)</option>
+                  <option value="365">365 days (annual)</option>
+                </select>
+              </label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -108,14 +184,27 @@
           <div class="card-header"><h3>ASIC Fee</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Company name <input type="text" placeholder="random" maxlength="60" data-field="company_name" /></label>
               <label>ACN <input type="text" placeholder="random" maxlength="14" data-field="acn" /></label>
             </div>
             <div class="field-row">
-              <label>Amount due ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="amount_due" /></label>
+              <label>Amount due ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="amount_due" data-clamp /></label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -128,18 +217,43 @@
           <div class="card-header"><h3>Bank Statement</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Bank name <input type="text" placeholder="random" maxlength="60" data-field="bank_name" /></label>
               <label>Account holder <input type="text" placeholder="random" maxlength="60" data-field="account_holder" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Opening balance ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="opening_balance" /></label>
-              <label>Num transactions <input type="number" min="1" max="50" placeholder="random" data-field="num_transactions" /></label>
+              <label>Opening balance ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="random" data-field="opening_balance" data-clamp /></label>
+              <label>Num transactions
+                <select data-field="num_transactions">
+                  <option value="">random</option>
+                  <option value="5">5</option>
+                  <option value="10">10</option>
+                  <option value="15">15</option>
+                  <option value="20">20</option>
+                  <option value="25">25</option>
+                  <option value="30">30</option>
+                  <option value="40">40</option>
+                  <option value="50">50</option>
+                </select>
+              </label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder='e.g. "balance=5000, 10 transactions"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder='e.g. "balance=5000"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -149,7 +263,20 @@
           <div class="card-header"><h3>Contract Note</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Broker name <input type="text" placeholder="random" maxlength="60" data-field="broker_name" /></label>
@@ -160,8 +287,8 @@
               <label>Security name <input type="text" placeholder="random" maxlength="60" data-field="security_name" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Quantity <input type="number" min="1" max="9999999" placeholder="random" data-field="quantity" /></label>
-              <label>Price ($) <input type="number" min="0.01" max="99999" step="0.0001" placeholder="random" data-field="price" /></label>
+              <label>Quantity <input type="number" min="1" max="9999999" placeholder="random" data-field="quantity" data-clamp /></label>
+              <label>Price ($) <input type="number" min="0.01" max="99999" step="0.01" placeholder="random" data-field="price" data-clamp /></label>
             </div>
             <div class="field-row">
               <label>Trade type
@@ -173,7 +300,7 @@
               </label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder='e.g. "buy, 500 shares"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder='e.g. "buy, code=CBA, price=95.50"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -183,7 +310,20 @@
           <div class="card-header"><h3>Council Rate</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Council name <input type="text" placeholder="random" maxlength="60" data-field="council_name" /></label>
@@ -193,8 +333,8 @@
               <label>Property address <input type="text" placeholder="random" maxlength="80" data-field="property_address" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Property value ($) <input type="number" min="1" max="99999999" placeholder="random" data-field="property_value" /></label>
-              <label>Total rates ($) <input type="number" min="1" max="999999" step="0.01" placeholder="random" data-field="total_rates" /></label>
+              <label>Property value ($) <input type="number" min="1" max="99999999" placeholder="random" data-field="property_value" data-clamp /></label>
+              <label>Total rates ($) <input type="number" min="1" max="999999" step="0.01" placeholder="random" data-field="total_rates" data-clamp /></label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -207,18 +347,40 @@
           <div class="card-header"><h3>Dividend</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Company name <input type="text" placeholder="random" maxlength="60" data-field="company_name" /></label>
               <label>Investor name <input type="text" placeholder="random" maxlength="60" data-field="investor_name" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Shares <input type="number" min="1" max="9999999" placeholder="random" data-field="shares" /></label>
-              <label>Rate per share ($) <input type="number" min="0.0001" max="99999" step="0.0001" placeholder="random" data-field="rate_per_share" /></label>
+              <label>Shares <input type="number" min="1" max="9999999" placeholder="random" data-field="shares" data-clamp /></label>
+              <label>Rate per share ($) <input type="number" min="0.0001" max="99999" step="0.0001" placeholder="random" data-field="rate_per_share" data-clamp /></label>
             </div>
             <div class="field-row">
-              <label>Franking % <input type="number" min="0" max="100" placeholder="random" data-field="franking_percentage" /></label>
+              <label>Franking %
+                <select data-field="franking_percentage">
+                  <option value="">random</option>
+                  <option value="0">0% (unfranked)</option>
+                  <option value="25">25%</option>
+                  <option value="50">50%</option>
+                  <option value="75">75%</option>
+                  <option value="100">100% (fully franked)</option>
+                </select>
+              </label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder='e.g. "500 shares, franking=100"' maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -231,7 +393,20 @@
           <div class="card-header"><h3>Property Settlement</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Vendor name <input type="text" placeholder="random" maxlength="60" data-field="vendor_name" /></label>
@@ -241,8 +416,8 @@
               <label>Property address <input type="text" placeholder="random" maxlength="80" data-field="property_address" /></label>
             </div>
             <div class="field-row two-col">
-              <label>Purchase price ($) <input type="number" min="1" max="99999999" placeholder="random" data-field="purchase_price" /></label>
-              <label>Deposit paid ($) <input type="number" min="1" max="999999" placeholder="random" data-field="deposit_paid" /></label>
+              <label>Purchase price ($) <input type="number" min="1" max="99999999" placeholder="random" data-field="purchase_price" data-clamp /></label>
+              <label>Deposit paid ($) <input type="number" min="1" max="999999" placeholder="random" data-field="deposit_paid" data-clamp /></label>
             </div>
             <div class="field-row">
               <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
@@ -255,7 +430,20 @@
           <div class="card-header"><h3>Rental Statement</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Agency name <input type="text" placeholder="random" maxlength="60" data-field="agency_name" /></label>
@@ -279,7 +467,20 @@
           <div class="card-header"><h3>Trial Balance</h3></div>
           <div class="card-body">
             <div class="field-row">
-              <label>How many? <input type="number" min="1" max="10" value="1" data-field="count" /></label>
+              <label>How many?
+                <select data-field="count">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                </select>
+              </label>
             </div>
             <div class="field-row two-col">
               <label>Company name <input type="text" placeholder="random" maxlength="60" data-field="company_name" /></label>
