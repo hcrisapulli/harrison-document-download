@@ -9,13 +9,17 @@
 <body>
   <div class="container">
     <header>
-      <h1>SmartDocs Sample Generator</h1>
-      <p class="subtitle">Select document types, configure options, and download a ZIP of sample PDFs.</p>
+      <div class="header-badge">BGL Corp &mdash; SmartDocs</div>
+      <h1>Sample Document Generator</h1>
+      <p class="subtitle">Select document types, configure options, and download a ZIP of realistic sample PDFs.</p>
     </header>
 
     <!-- STEP 1: Select types -->
     <section class="step">
-      <h2>1. Select Document Types</h2>
+      <div class="step-label">
+        <span class="step-number">1</span>
+        <h2>Select Document Types</h2>
+      </div>
       <div class="type-grid" id="typeGrid">
         <label class="type-chip"><input type="checkbox" value="invoice" /> Invoice</label>
         <label class="type-chip"><input type="checkbox" value="receipt" /> Receipt</label>
@@ -34,7 +38,10 @@
 
     <!-- STEP 2: Configure cards (shown per selected type) -->
     <section class="step" id="configSection">
-      <h2>2. Configure</h2>
+      <div class="step-label">
+        <span class="step-number">2</span>
+        <h2>Configure</h2>
+      </div>
       <div id="cards">
 
         <!-- Invoice -->
@@ -508,6 +515,7 @@
         <span id="btnText">Generate &amp; Download ZIP</span>
         <span id="btnSpinner" class="spinner" style="display:none"></span>
       </button>
+      <p class="action-hint">Documents are generated fresh each time &mdash; all data is fictional</p>
     </section>
   </div>
 
