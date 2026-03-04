@@ -52,16 +52,42 @@ python app.py
 
 Then open your browser and navigate to `http://localhost:5000`
 
-## AI-Powered Instructions
+## Using Instructions
 
-When the Claude API key is configured, you can use natural language instructions like:
+The app supports comprehensive keyword-based instruction parsing. You can customize document parameters using simple keywords.
 
-- "Make the supplier ABC Corp with subtotal of $5000"
-- "GST free invoice with 5 items"
-- "Bank statement for John Smith with opening balance $10,000 and 20 transactions"
-- "Buy 500 shares of CBA at $95 per share"
+### Quick Examples
 
-Without the API key, the app falls back to keyword-based parsing (e.g., "gst free", "subtotal=5000", "5 items")
+**Invoice:**
+```
+supplier=Tech Solutions, customer=John Smith, subtotal=8000, 4 items
+```
+
+**Bank Statement:**
+```
+bank=Commonwealth Bank, holder=Sarah Williams, balance=25000, 15 transactions
+```
+
+**Contract Note (Buy):**
+```
+buy, 500 shares, code=CBA, price=95.50, client=Michael Brown
+```
+
+**Receipt:**
+```
+business=Corner Store, customer=Emma Wilson, subtotal=350, 3 items
+```
+
+### Comprehensive Keyword Guide
+
+See [KEYWORD_GUIDE.md](KEYWORD_GUIDE.md) for the complete list of supported keywords for all document types.
+
+**Key Features:**
+- Use `=` or `:` to assign values
+- Use quotes for multi-word text: `supplier="ABC Corporation Pty Ltd"`
+- Flexible number formats: `$5,000` or `5000`
+- ABN auto-formatting: `12345678901` → `12 345 678 901`
+- Order doesn't matter - combine keywords however you like
 
 ## Document Types Supported
 

@@ -11,7 +11,7 @@ import zipfile
 from flask import Flask, jsonify, render_template, request, send_file
 
 import generators
-import ai_instruction_parser
+import instruction_parser
 
 app = Flask(__name__)
 app.config["MAX_CONTENT_LENGTH"] = 10 * 1024 * 1024  # 10 MB max request
@@ -58,11 +58,8 @@ def generate():
                     form_params = spec.get("params") or {}
                     instruction_text = spec.get("instruction") or ""
 
-                    # Get API key from environment variable (optional)
-                    api_key = os.environ.get("ANTHROPIC_API_KEY")
-
-                    parsed = ai_instruction_parser.parse(instruction_text, doc_type, api_key)
-                    params = ai_instruction_parser.merge(form_params, parsed)
+                    parsed = instruction_parser.parse(instruction_text)
+                    params = instruction_parser.merge(form_params, parsed)
 
                     if instruction_text:
                         instructions_parts.append(
