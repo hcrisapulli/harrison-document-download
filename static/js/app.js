@@ -41,6 +41,7 @@
     });
     card.querySelectorAll("select").forEach((el) => {
       el.selectedIndex = 0;
+      clearFieldError(el);
     });
     card.querySelectorAll("input[type='checkbox']").forEach((el) => {
       el.checked = false;
@@ -209,6 +210,10 @@
       // Numeric fields — use valueAsNumber to read typed value accurately
       if (el.type === "number") {
         const num = el.valueAsNumber;
+        if (!isNaN(num)) spec.params[field] = num;
+      } else if (el.tagName === "SELECT" && el.dataset.numeric === "true") {
+        // Select fields that carry numeric values (e.g. num_items, billing_days)
+        const num = parseFloat(val);
         if (!isNaN(num)) spec.params[field] = num;
       } else {
         spec.params[field] = val;

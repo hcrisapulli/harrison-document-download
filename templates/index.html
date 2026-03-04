@@ -64,7 +64,7 @@
             <div class="field-row two-col">
               <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="leave blank to randomise" data-field="subtotal" data-clamp /></label>
               <label>Num items
-                <select data-field="num_items">
+                <select data-field="num_items" data-numeric="true">
                   <option value="">random</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -115,7 +115,7 @@
             <div class="field-row two-col">
               <label>Subtotal ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="leave blank to randomise" data-field="subtotal" data-clamp /></label>
               <label>Num items
-                <select data-field="num_items">
+                <select data-field="num_items" data-numeric="true">
                   <option value="">random</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
@@ -163,7 +163,7 @@
             <div class="field-row two-col">
               <label>Usage amount <input type="number" min="1" max="99999" step="0.01" placeholder="leave blank to randomise" data-field="usage_amount" data-clamp /></label>
               <label>Billing days
-                <select data-field="billing_days">
+                <select data-field="billing_days" data-numeric="true">
                   <option value="">random</option>
                   <option value="30">30 days (monthly)</option>
                   <option value="60">60 days (bi-monthly)</option>
@@ -174,7 +174,7 @@
               </label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. provider=Energy Australia, usage=450" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -207,7 +207,7 @@
               <label>Amount due ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="leave blank to randomise" data-field="amount_due" data-clamp /></label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. company=ABC Pty Ltd, amount=1200" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -239,7 +239,7 @@
             <div class="field-row two-col">
               <label>Opening balance ($) <input type="number" min="1" max="9999999" step="0.01" placeholder="leave blank to randomise" data-field="opening_balance" data-clamp /></label>
               <label>Num transactions
-                <select data-field="num_transactions">
+                <select data-field="num_transactions" data-numeric="true">
                   <option value="">random</option>
                   <option value="5">5</option>
                   <option value="10">10</option>
@@ -337,7 +337,7 @@
               <label>Total rates ($) <input type="number" min="1" max="999999" step="0.01" placeholder="leave blank to randomise" data-field="total_rates" data-clamp /></label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. council=Melbourne City, rates=3500" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -372,7 +372,7 @@
             </div>
             <div class="field-row">
               <label>Franking %
-                <select data-field="franking_percentage">
+                <select data-field="franking_percentage" data-numeric="true">
                   <option value="">random</option>
                   <option value="0">0% (unfranked)</option>
                   <option value="25">25%</option>
@@ -420,7 +420,7 @@
               <label>Deposit paid ($) <input type="number" min="1" max="999999" placeholder="leave blank to randomise" data-field="deposit_paid" data-clamp /></label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. vendor=John Smith, price=850000" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -457,7 +457,7 @@
               <label>Period to <input type="text" placeholder="e.g. 30/06/2026" maxlength="10" data-field="period_to" /></label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. agency=First National, owner=John Smith" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
@@ -490,7 +490,7 @@
               <label>Balance date <input type="text" placeholder="e.g. 30/06/2025" maxlength="10" data-field="balance_date" /></label>
             </div>
             <div class="field-row">
-              <label>Instructions <input type="text" placeholder="free-text instructions" maxlength="200" data-field="instruction" class="instruction-field" /></label>
+              <label>Instructions <input type="text" placeholder="e.g. company=ABC Pty Ltd, date=2025-06-30" maxlength="200" data-field="instruction" class="instruction-field" /></label>
             </div>
           </div>
         </div>
