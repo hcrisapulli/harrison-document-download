@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SmartDocs Sample Generator</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>SmartDocs Sample Generator</h1>
+      <p class="subtitle">Select document types, configure options, and download a ZIP of sample PDFs.</p>
+    </header>
+
+    <!-- STEP 1: Select types -->
+    <section class="step">
+      <h2>1. Select Document Types</h2>
+      <div class="type-grid" id="typeGrid">
+        <label class="type-chip"><input type="checkbox" value="invoice" /> Invoice</label>
+        <label class="type-chip"><input type="checkbox" value="receipt" /> Receipt</label>
+        <label class="type-chip"><input type="checkbox" value="utility_bill" /> Utility Bill</label>
+        <label class="type-chip"><input type="checkbox" value="asic_fee" /> ASIC Fee</label>
+        <label class="type-chip"><input type="checkbox" value="bank_statement" /> Bank Statement</label>
+        <label class="type-chip"><input type="checkbox" value="contract_note" /> Contract Note</label>
+        <label class="type-chip"><input type="checkbox" value="council_rate" /> Council Rate</label>
+        <label class="type-chip"><input type="checkbox" value="dividend" /> Dividend</label>
+        <label class="type-chip"><input type="checkbox" value="property_settlement" /> Property Settlement</label>
+        <label class="type-chip"><input type="checkbox" value="rental_statement" /> Rental Statement</label>
+        <label class="type-chip"><input type="checkbox" value="trial_balance" /> Trial Balance</label>
+      </div>
+      <button type="button" id="selectAllBtn" class="btn btn-secondary">Select All</button>
+    </section>
+
+    <!-- STEP 2: Configure cards (shown per selected type) -->
+    <section class="step" id="configSection">
+      <h2>2. Configure</h2>
+      <div id="cards">
+
+        <!-- Invoice -->
+        <div class="card" id="card-invoice" style="display:none">
+          <div class="card-header"><h3>Invoice</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Supplier name <input type="text" placeholder="random" data-field="supplier_name" /></label>
+              <label>Customer name <input type="text" placeholder="random" data-field="customer_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Subtotal ($) <input type="number" min="0" step="0.01" placeholder="random" data-field="subtotal" /></label>
+              <label>Num items <input type="number" min="1" max="10" placeholder="random" data-field="num_items" /></label>
+            </div>
+            <div class="field-row">
+              <label class="checkbox-label"><input type="checkbox" data-field="gst_free" /> GST-free</label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder='e.g. "gst-free, 3 items"' data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Receipt -->
+        <div class="card" id="card-receipt" style="display:none">
+          <div class="card-header"><h3>Receipt</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Business name <input type="text" placeholder="random" data-field="business_name" /></label>
+              <label>Customer name <input type="text" placeholder="random" data-field="customer_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Subtotal ($) <input type="number" min="0" step="0.01" placeholder="random" data-field="subtotal" /></label>
+              <label>Num items <input type="number" min="1" max="10" placeholder="random" data-field="num_items" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder='e.g. "3 items, subtotal=500"' data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Utility Bill -->
+        <div class="card" id="card-utility_bill" style="display:none">
+          <div class="card-header"><h3>Utility Bill</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Provider name <input type="text" placeholder="random" data-field="provider_name" /></label>
+              <label>Customer name <input type="text" placeholder="random" data-field="customer_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Usage amount <input type="number" min="0" step="0.01" placeholder="random" data-field="usage_amount" /></label>
+              <label>Billing days <input type="number" min="1" max="365" placeholder="91" data-field="billing_days" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- ASIC Fee -->
+        <div class="card" id="card-asic_fee" style="display:none">
+          <div class="card-header"><h3>ASIC Fee</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Company name <input type="text" placeholder="random" data-field="company_name" /></label>
+              <label>ACN <input type="text" placeholder="random" data-field="acn" /></label>
+            </div>
+            <div class="field-row">
+              <label>Amount due ($) <input type="number" min="0" step="0.01" placeholder="random" data-field="amount_due" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bank Statement -->
+        <div class="card" id="card-bank_statement" style="display:none">
+          <div class="card-header"><h3>Bank Statement</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Bank name <input type="text" placeholder="random" data-field="bank_name" /></label>
+              <label>Account holder <input type="text" placeholder="random" data-field="account_holder" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Opening balance ($) <input type="number" min="0" step="0.01" placeholder="random" data-field="opening_balance" /></label>
+              <label>Num transactions <input type="number" min="1" max="50" placeholder="random" data-field="num_transactions" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder='e.g. "balance=5000, 10 transactions"' data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Contract Note -->
+        <div class="card" id="card-contract_note" style="display:none">
+          <div class="card-header"><h3>Contract Note</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Broker name <input type="text" placeholder="random" data-field="broker_name" /></label>
+              <label>Client name <input type="text" placeholder="random" data-field="client_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Security code <input type="text" placeholder="random (e.g. BHP)" data-field="security_code" /></label>
+              <label>Security name <input type="text" placeholder="random" data-field="security_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Quantity <input type="number" min="1" placeholder="random" data-field="quantity" /></label>
+              <label>Price ($) <input type="number" min="0" step="0.0001" placeholder="random" data-field="price" /></label>
+            </div>
+            <div class="field-row">
+              <label>Trade type
+                <select data-field="trade_type">
+                  <option value="">random</option>
+                  <option value="buy">Buy</option>
+                  <option value="sell">Sell</option>
+                </select>
+              </label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder='e.g. "buy, 500 shares"' data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Council Rate -->
+        <div class="card" id="card-council_rate" style="display:none">
+          <div class="card-header"><h3>Council Rate</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Council name <input type="text" placeholder="random" data-field="council_name" /></label>
+              <label>Ratepayer name <input type="text" placeholder="random" data-field="ratepayer_name" /></label>
+            </div>
+            <div class="field-row">
+              <label>Property address <input type="text" placeholder="random" data-field="property_address" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Property value ($) <input type="number" min="0" placeholder="random" data-field="property_value" /></label>
+              <label>Total rates ($) <input type="number" min="0" step="0.01" placeholder="random" data-field="total_rates" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Dividend -->
+        <div class="card" id="card-dividend" style="display:none">
+          <div class="card-header"><h3>Dividend</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Company name <input type="text" placeholder="random" data-field="company_name" /></label>
+              <label>Investor name <input type="text" placeholder="random" data-field="investor_name" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Shares <input type="number" min="1" placeholder="random" data-field="shares" /></label>
+              <label>Rate per share ($) <input type="number" min="0" step="0.0001" placeholder="random" data-field="rate_per_share" /></label>
+            </div>
+            <div class="field-row">
+              <label>Franking % <input type="number" min="0" max="100" placeholder="random" data-field="franking_percentage" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder='e.g. "500 shares, franking=100"' data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Property Settlement -->
+        <div class="card" id="card-property_settlement" style="display:none">
+          <div class="card-header"><h3>Property Settlement</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Vendor name <input type="text" placeholder="random" data-field="vendor_name" /></label>
+              <label>Purchaser name <input type="text" placeholder="random" data-field="purchaser_name" /></label>
+            </div>
+            <div class="field-row">
+              <label>Property address <input type="text" placeholder="random" data-field="property_address" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Purchase price ($) <input type="number" min="0" placeholder="random" data-field="purchase_price" /></label>
+              <label>Deposit paid ($) <input type="number" min="0" placeholder="random" data-field="deposit_paid" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rental Statement -->
+        <div class="card" id="card-rental_statement" style="display:none">
+          <div class="card-header"><h3>Rental Statement</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Agency name <input type="text" placeholder="random" data-field="agency_name" /></label>
+              <label>Owner name <input type="text" placeholder="random" data-field="owner_name" /></label>
+            </div>
+            <div class="field-row">
+              <label>Property address <input type="text" placeholder="random" data-field="property_address" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Period from <input type="text" placeholder="e.g. 01/07/2025" data-field="period_from" /></label>
+              <label>Period to <input type="text" placeholder="e.g. 30/06/2026" data-field="period_to" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Trial Balance -->
+        <div class="card" id="card-trial_balance" style="display:none">
+          <div class="card-header"><h3>Trial Balance</h3></div>
+          <div class="card-body">
+            <div class="field-row">
+              <label>How many? <input type="number" min="1" max="20" value="1" data-field="count" /></label>
+            </div>
+            <div class="field-row two-col">
+              <label>Company name <input type="text" placeholder="random" data-field="company_name" /></label>
+              <label>Company ABN <input type="text" placeholder="random" data-field="company_abn" /></label>
+            </div>
+            <div class="field-row">
+              <label>Balance date <input type="text" placeholder="e.g. 30/06/2025" data-field="balance_date" /></label>
+            </div>
+            <div class="field-row">
+              <label>Instructions <input type="text" placeholder="free-text instructions" data-field="instruction" class="instruction-field" /></label>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- /#cards -->
+    </section>
+
+    <!-- STEP 3: Generate -->
+    <section class="step action-section">
+      <div id="errorBanner" class="error-banner" style="display:none"></div>
+      <button type="button" id="generateBtn" class="btn btn-primary" disabled>
+        <span id="btnText">Generate &amp; Download ZIP</span>
+        <span id="btnSpinner" class="spinner" style="display:none"></span>
+      </button>
+    </section>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
