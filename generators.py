@@ -14,8 +14,13 @@ _SCRIPTS_DIR = os.path.abspath(
 )
 
 
+_MODULE_CACHE: dict = {}
+
+
 def _load_module(script_name: str):
-    """Import a script from the scripts/ directory by filename."""
+    """Import a script from the scripts/ directory by filename. Cached after first load."""
+    if script_name in _MODULE_CACHE:
+        return _MODULE_CACHE[script_name]
     path = os.path.join(_SCRIPTS_DIR, script_name)
     spec = importlib.util.spec_from_file_location(script_name[:-3], path)
     mod = importlib.util.module_from_spec(spec)
@@ -23,6 +28,7 @@ def _load_module(script_name: str):
     if _SCRIPTS_DIR not in sys.path:
         sys.path.insert(0, _SCRIPTS_DIR)
     spec.loader.exec_module(mod)
+    _MODULE_CACHE[script_name] = mod
     return mod
 
 

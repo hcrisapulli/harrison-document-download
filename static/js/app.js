@@ -36,7 +36,8 @@
 
   function clearCard(card) {
     card.querySelectorAll("input[type='text'], input[type='number']").forEach((el) => {
-      el.value = el.type === "number" && el.dataset.field === "count" ? "1" : "";
+      el.value = "";
+      clearFieldError(el);
     });
     card.querySelectorAll("select").forEach((el) => {
       el.selectedIndex = 0;
@@ -50,22 +51,6 @@
     const anyChecked = getCheckboxes().some((cb) => cb.checked);
     generateBtn.disabled = !anyChecked;
   }
-
-  // ── Real-time clamping for number inputs ──────────────────────────────────
-
-  document.getElementById("cards").addEventListener("input", (e) => {
-    const el = e.target;
-    if (el.type !== "number" || !el.hasAttribute("data-clamp")) return;
-    if (el.value === "" || el.value === "-") return;
-    const val = parseFloat(el.value);
-    if (isNaN(val)) return;
-    if (el.max !== "" && val > parseFloat(el.max)) {
-      el.value = el.max;
-    }
-    if (el.min !== "" && val < parseFloat(el.min) && el.value.length >= el.min.toString().length) {
-      el.value = el.min;
-    }
-  });
 
   typeGrid.addEventListener("change", (e) => {
     if (e.target.type === "checkbox") {
@@ -87,12 +72,62 @@
     updateGenerateButton();
   });
 
+  // ── Inline field error helpers ────────────────────────────────────────────
+
+  function setFieldError(el, msg) {
+    el.classList.add("field-error");
+    let hint = el.parentElement.querySelector(".field-error-msg");
+    if (!hint) {
+      hint = document.createElement("span");
+      hint.className = "field-error-msg";
+      el.parentElement.appendChild(hint);
+    }
+    hint.textContent = msg;
+  }
+
+  function clearFieldError(el) {
+    el.classList.remove("field-error");
+    const hint = el.parentElement.querySelector(".field-error-msg");
+    if (hint) hint.remove();
+  }
+
+  // ── Real-time clamping for number inputs ──────────────────────────────────
+
+  document.getElementById("cards").addEventListener("input", (e) => {
+    const el = e.target;
+    if (el.type !== "number" || !el.hasAttribute("data-clamp")) return;
+
+    clearFieldError(el);
+
+    const raw = el.value;
+    if (raw === "" || raw === "-") return;
+
+    const val = parseFloat(raw);
+    if (isNaN(val)) return;
+
+    const max = el.max !== "" ? parseFloat(el.max) : null;
+    const min = el.min !== "" ? parseFloat(el.min) : null;
+
+    if (max !== null && val > max) {
+      el.value = max;
+      setFieldError(el, `Maximum value is ${Number(max).toLocaleString()}`);
+      // Clear the hint after 2 seconds
+      setTimeout(() => clearFieldError(el), 2000);
+    } else if (min !== null && val < 0) {
+      // Block negative numbers immediately
+      el.value = "";
+    }
+  });
+
   // ── Build request payload ─────────────────────────────────────────────────
 
   // ── Validation ────────────────────────────────────────────────────────────
 
   function validateCards() {
     const errors = [];
+
+    // Clear all existing field errors first
+    document.querySelectorAll(".field-error").forEach((el) => clearFieldError(el));
 
     getCheckboxes().forEach((cb) => {
       if (!cb.checked) return;
@@ -107,33 +142,38 @@
         const fieldLabel = field.replace(/_/g, " ");
 
         if (el.type === "number") {
-          // Use valueAsNumber to read what was actually typed, bypassing browser range clamping
           const typed = el.valueAsNumber;
-          const hasValue = !el.validity.valueMissing && el.value !== "";
+          const hasValue = el.value !== "";
           const min = el.min !== "" ? parseFloat(el.min) : null;
           const max = el.max !== "" ? parseFloat(el.max) : null;
 
-          // count is now a select — always valid, skip
-          if (field === "count") return;
+          if (field === "count") return; // select, always valid
 
-          // Optional fields — skip if nothing entered
-          if (!hasValue) return;
+          if (!hasValue) return; // optional field, skip if empty
 
           if (isNaN(typed)) {
+            const msg = `Must be a valid number.`;
             errors.push(`${label}: "${fieldLabel}" must be a valid number.`);
+            setFieldError(el, msg);
             return;
           }
           if (min !== null && typed < min) {
+            const msg = `Minimum value is ${min}.`;
             errors.push(`${label}: "${fieldLabel}" must be at least ${min}.`);
+            setFieldError(el, msg);
           }
           if (max !== null && typed > max) {
+            const msg = `Maximum value is ${Number(max).toLocaleString()}.`;
             errors.push(`${label}: "${fieldLabel}" cannot exceed ${Number(max).toLocaleString()}.`);
+            setFieldError(el, msg);
           }
         }
 
         if (el.type === "text" && el.maxLength > 0) {
           if (el.value.length > el.maxLength) {
+            const msg = `Cannot exceed ${el.maxLength} characters.`;
             errors.push(`${label}: "${fieldLabel}" cannot exceed ${el.maxLength} characters.`);
+            setFieldError(el, msg);
           }
         }
       });
@@ -193,6 +233,7 @@
   function showError(msg) {
     errorBanner.textContent = msg;
     errorBanner.style.display = "block";
+    errorBanner.scrollIntoView({ behavior: "smooth", block: "nearest" });
   }
 
   function hideError() {
@@ -208,6 +249,7 @@
 
   generateBtn.addEventListener("click", async () => {
     hideError();
+    document.querySelectorAll(".field-error").forEach((el) => clearFieldError(el));
 
     const payload = buildPayload();
     if (payload.documents.length === 0) {
@@ -256,7 +298,6 @@
       showError("Network error: " + err.message);
     } finally {
       setLoading(false);
-      // Re-enable button if types are still selected
       updateGenerateButton();
     }
   });

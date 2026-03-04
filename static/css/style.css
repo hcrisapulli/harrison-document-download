@@ -239,6 +239,20 @@ header h1 {
   gap: 16px;
 }
 
+/* Inline field errors */
+.field-error {
+  border-color: var(--color-error) !important;
+  box-shadow: 0 0 0 3px rgba(220,38,38,0.15) !important;
+}
+
+.field-error-msg {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--color-error);
+}
+
 /* Error banner */
 .error-banner {
   width: 100%;

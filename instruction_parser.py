@@ -354,10 +354,11 @@ def parse(text: str) -> dict:
 def merge(form_params: dict, instruction_params: dict) -> dict:
     """
     Merge instruction-parsed params into form params.
-    Explicit form fields (non-None, non-empty) take priority over parsed values.
+    Explicit form fields (non-None, non-empty string) take priority over parsed values.
+    Note: 0 is a valid value and is not treated as empty.
     """
     merged = dict(instruction_params)
     for key, value in form_params.items():
-        if value is not None and value != "" and value != 0:
+        if value is not None and value != "":
             merged[key] = value
     return merged
